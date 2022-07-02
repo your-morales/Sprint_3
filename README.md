@@ -1,2 +1,2 @@
 # qa_java
-CLEAR PROJECT
+First check of the project
