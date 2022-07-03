@@ -9,17 +9,14 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 
 public class GetOrderTest {
+  private final RestClient client = new RestClient("/api/v1/orders");
 
   @Test
   public void checkOrder() {
-    Response response = sendGetOrders();
+    Response response = client.getOrders();
     compareResponseStatusAndOrderNotNull(response);
   }
 
-  @Step("Send GET request to /api/v1/courier/orders")
-  public Response sendGetOrders() {
-    return given().baseUri("http://qa-scooter.praktikum-services.ru").basePath("/api/v1/orders").get();
-  }
 
   @Step("Compare Status code and Body not NULL")
   public void compareResponseStatusAndOrderNotNull(Response response) {

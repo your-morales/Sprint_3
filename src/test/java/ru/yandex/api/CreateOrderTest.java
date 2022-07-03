@@ -42,12 +42,8 @@ public class CreateOrderTest {
   private final String[] color;
   public String track = null;
 
-  @Before
-  public void base() {
+  private final RestClient client = new RestClient("/api/v1/orders");
 
-    RestAssured.baseURI = "http://qa-scooter.praktikum-services.ru";
-    RestAssured.basePath = "/api/v1/orders";
-  }
 
   @Parameterized.Parameters
   public static Object[][] setOrderBody() {
@@ -61,9 +57,7 @@ public class CreateOrderTest {
   @Test
   public void sendCreateOrders() {
     CreateOrderTest order = new CreateOrderTest(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
-    String jsonRequest = given()
-            .body(order)
-            .post()
+    String jsonRequest = client.create(order)
             .then()
             .extract().asString();
     JsonPath jsonPath = new JsonPath(jsonRequest);
@@ -73,11 +67,12 @@ public class CreateOrderTest {
   @After
   public void canselCreateOrders() { //Подчищяем за собой
     if (track != null) {
-      given()
-              .queryParam("track", track)
-              .put("/cancel")
+      client.cancel(track)
               .then()
               .body("ok", equalTo(true)); // удаляем за собой
+    }
+    else {
+      System.out.println("lalala");
     }
   }
 
