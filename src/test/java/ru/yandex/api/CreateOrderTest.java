@@ -42,7 +42,7 @@ public class CreateOrderTest {
   private final String[] color;
   public String track = null;
 
-  private final RestClient client = new RestClient("/api/v1/orders");
+  private final OrderRestClient client = new OrderRestClient("/api/v1/orders");
 
 
   @Parameterized.Parameters

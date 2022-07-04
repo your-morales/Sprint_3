@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class CourierTest {
 
-  private final RestClient client = new RestClient("/api/v1/courier");
+  private final CourierRestClient client = new CourierRestClient("/api/v1/courier");
 
   @Test
   @DisplayName("Create Courier")
